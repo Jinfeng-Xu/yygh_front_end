@@ -32,23 +32,33 @@
 import hospset from '@/api/hospset'
 
 export default {
-   data() {
-      return {
-         hospitalSet:{} 
-      }
-   },
-   created() {//页面渲染之前执行
+    data() {
+        return {
+            hospitalSet:{} 
+        }
+    },
+    created() {//页面渲染之前执行
       //获取路由id值
       //调用接口得到医院设置信息
-      if(this.$route.params && this.$route.params.id) {
-         const id = this.$route.params.id
-         this.getHostSet(id)
-      } else {
-         //表单数据清空
-         this.hospitalSet = {}
-      }
-   },
+        this.init()
+    },
+    watch: {  //监听
+        $route(to, from) { //路由变化方式，路由发生变化，方法就会执行
+            this.init()
+        }
+    },
    methods: {
+        init(){
+            if(this.$route.params && this.$route.params.id) {
+                 //从路径获取id值
+                const id = this.$route.params.id
+                //调用根据id查询的方法
+                this.getHostSet(id)
+            } else { //路径没有id值，做添加
+                //清空表单
+                this.hospitalSet = {}
+            }
+        },
       //根据id查询
       getHostSet(id) {
          hospset.getHospSet(id) 

@@ -36,9 +36,9 @@
                <el-button type="danger" size="mini" 
                   icon="el-icon-delete" @click="removeDataById(scope.row.id)">删除</el-button>
                <el-button v-if="scope.row.status==1" type="primary" size="mini" 
-                  icon="el-icon-delete" @click="lockHostSet(scope.row.id,0)">锁定</el-button>
+                  icon="el-icon-delete" @click="lockHospSet(scope.row.id,0)">锁定</el-button>
                <el-button v-if="scope.row.status==0" type="danger" size="mini" 
-                  icon="el-icon-delete" @click="lockHostSet(scope.row.id,1)">取消锁定</el-button>
+                  icon="el-icon-delete" @click="lockHospSet(scope.row.id,1)">取消锁定</el-button>
             <router-link :to="'/hospSet/edit/'+scope.row.id">
                <el-button type="primary" size="mini" icon="el-icon-edit">编辑</el-button>
             </router-link>
@@ -80,7 +80,7 @@ export default {
    },
    methods: {//定义方法，进行请求接口调用
       //锁定和取消锁定
-      lockHostSet(id,status) {
+      lockHospSet(id,status) {
          hospset.lockHospSet(id,status)
             .then(response => {
                //刷新
